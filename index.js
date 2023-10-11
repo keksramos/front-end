@@ -15,7 +15,7 @@ const db = require('./util/db')
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
-db.disconnect()
+db.connect()
 
 app.use('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerSpec))
 

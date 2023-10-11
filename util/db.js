@@ -6,7 +6,7 @@ const URI = process.env.URI
 mongoose.set('strictQuery', false)
 
 module.exports = {
-    conect: () => {
+    connect: () => {
         mongoose.connect(URI, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
