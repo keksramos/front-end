@@ -1,0 +1,21 @@
+{
+  "name": "repaso-backend",
+  "version": "1.0.0",
+  "description": "Estamos practicando nuevamente lo de backend",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --watch . ./index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Cecilia Ramos",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
