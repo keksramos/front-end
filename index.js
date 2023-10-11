@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
 const port = 3000
@@ -8,10 +9,14 @@ const swaggerJSDoc = require('swagger-jsdoc')
 const swaggerUI = require('swagger-ui-express')
 const docs = require('./doc/index')
 const swaggerSpec = swaggerJSDoc(docs)
+const db = require('./util/db')
 
 /** Middlewares */
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
+
+db.disconnect()
+
 app.use('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerSpec))
 
 /** Routes */

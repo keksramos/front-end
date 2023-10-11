@@ -58,31 +58,3 @@ module.exports = {
     }
 }
 
-
-
-// fs.readFile(Users, JSON.stringify(newUsers), (err, data) => {
-//     if (err) throw err;
-//     console.log(data + "1");
-// });
-
-
-/*fs.appendFile('./test.txt', ' Koders!', (err) => {
-    if (err) throw err;
-    console.log('Archivo editado Satisfactoriamente');
-});*/
-
-/*fs.readFile('./test.txt', 'utf8', (err, data) => {
-    if (err) throw err;
-    console.log(data + "2");
-});*/
-
-/*fs.readFile('./files/test.txt', 'utf8', (err, data) => {
-    if (err) throw err;
-    data = data + new Date()
-    fs.writeFile('./files/test.txt', data.toString(), (err) => {
-        if (err) throw err;
-        console.log('Archivo creado Satisfactoriamente');
-    });
-});*/
-
-
