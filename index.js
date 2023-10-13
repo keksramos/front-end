@@ -16,13 +16,14 @@ const errorHandler = require('./middlewares/errorHandler')
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
-app.use(errorHandler.errorHandler)
 db.connect()
 
 app.use('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerSpec))
 
 /** Routes */
 app.use(routes)
+
+app.use(errorHandler.errorHandler)
 
 
 /** Server - Bucle que va a estar escuchando constantemente */

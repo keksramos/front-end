@@ -18,15 +18,19 @@ module.exports = {
         }
         return res.status(200).send({msg: 'Success', data:user})
     },
-    post: async (req, res) => {
-        req.body.password = await Users.encrypPassword(req.body.password)
-        let user = await Users.create(req.body)
-        if (!user) {
-            return res.status(502).send({msg: 'User not created'})
+    post: async (req, res, next) => {
+        try {
+            req.body.password = await Users.encrypPassword(req.body.password)
+            let user = await Users.create(req.body)
+            if (!user) {
+                return res.status(502).send({msg: 'User not created'})
+            }
+            await user.save()
+    
+            return res.status(201).send({msg: 'User successfuly created', data: user})
+        } catch (error){
+            next(error, req, res)
         }
-        await user.save()
-
-        return res.status(201).send({msg: 'User successfuly created', data: user})
     },
     put: async (req, res) => {
         let id = req.params.id
