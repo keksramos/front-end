@@ -10,11 +10,13 @@ const swaggerUI = require('swagger-ui-express')
 const docs = require('./doc/index')
 const swaggerSpec = swaggerJSDoc(docs)
 const db = require('./util/db')
+const errorHandler = require('./middlewares/errorHandler')
 
 /** Middlewares */
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
+app.use(errorHandler.errorHandler)
 db.connect()
 
 app.use('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerSpec))
