@@ -1,5 +1,5 @@
 module.exports ={
-    errorHandler: (err, req, res, next) => {
+    errorHandler: (err, req, res) => {
         switch (true) {
             case typeof err === 'string':
                 const is404 = err.toLowerCase().endsWith('not found')

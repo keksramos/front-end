@@ -1,6 +1,7 @@
 // const fs = require('fs')
 // const Users = '../db/users.json'
 const Users = require('../models/users')
+const auth = require ('../middlewares/auth')
 
 // db.users.find({})
 
@@ -30,6 +31,7 @@ module.exports = {
             return res.status(201).send({msg: 'User successfuly created', data: user})
         } catch (error){
             next(error, req, res)
+            // res.status(500).send({msg: error})
         }
     },
     put: async (req, res) => {
@@ -49,6 +51,7 @@ module.exports = {
         return res.status(200).send({msg: 'User deleted successfully'})
     },
     login: async (req, res) => {
+        /* All your base are belong to us!!! */
         const {email, password} = req.body
         let user = await Users.findOne({email: email})
         if (!user){
@@ -58,7 +61,9 @@ module.exports = {
         if(!validPassword){
             return res.status(401).send({msg:'incorrect password'})
         }
-        return res.status(200).send({msg: 'success', data:user})
+        // generate token 
+        let token = auth.generateToken(user)
+        return res.status(200).send({msg: 'success', data:token})
     }
 }
 

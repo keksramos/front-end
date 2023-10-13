@@ -22,7 +22,6 @@ app.use('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerSpec))
 
 /** Routes */
 app.use(routes)
-
 app.use(errorHandler.errorHandler)
 
 
