@@ -295,30 +295,8 @@ const Users = require('../models/users');
 //  *                      schema: 
 //  *                          type: object
 //  *                          properties: 
-//  *                              data: 
-//  *                                  type: object
-//  *                                  properites: 
-//  *                                  id:
-//  *                                      type: string
-//  *                                      example: 2
-//  *                                  first_name:
-//  *                                      type: string
-//  *                                      example: Bettye
-//  *                                  last_name:
-//  *                                      type: string
-//  *                                      example: Rollin
-//  *                                  email:
-//  *                                      type: string
-//  *                                      example: email@email.com
-//  *                                  gender:
-//  *                                      type: sting
-//  *                                      example: female
-//  *                                  password:
-//  *                                      type: string
-//  *                                      example: hegerfhsdiofh2900j
-//  *                              msg:
-//  *                                  type: string
-//  *                                  example: "update successfull"     
+//  *                              msg: 
+//  *                              type: object
 //  *          404:
 //  *              description: not found
 //  *              content:
@@ -348,7 +326,310 @@ const Users = require('../models/users');
 //  */
 // router.delete('/:id', userController.delete)
 
+/**
+ * @swagger
+ * /users:
+ *  get:
+ *      summary: Get all users
+ *      tags:
+ *          - users
+ *      description: retrive all users from db
+ *      responses:
+ *          200:
+ *              description: return a message and all data user
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              msg: 
+ *                                  type: string
+ *                                  example: User found
+ *                              data:
+ *                                  type: string
+ *                                  properties:
+ *                                      _id:
+ *                                          type: string
+ *                                          example: 6524cacdad03e6f697632ae0
+ *                                      first_name:
+ *                                          type: string
+ *                                          example: Name
+ *                                      last_name:
+ *                                          type: string
+ *                                          example: Last Name
+ *                                      email:
+ *                                          type: string
+ *                                          example: email@mail.com
+ *                                      gender:
+ *                                          type: string
+ *                                          example: Male
+ *                                      password:
+ *                                          type: string
+ *                                          example: ojdhf87a5sd8fu
+ *                                      date_birth:
+ *                                          type: date
+ *                                          example: '03-15-1989'
+ */
 router.get('/', userController.get)
+
+/**
+ * @swagger
+ * /users/id:
+ *  get:
+  *      summary: Get user by id
+ *      tags:
+ *          - users
+ *      description: retrive user by id
+ *      responses:
+ *          200:
+ *              description: return a message and data user
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              data:
+ *                                  type: array
+ *                                  items:
+ *                                      type: object
+ *                                      properites:
+ *                                          _id:
+ *                                              type: string
+ *                                              example: "6524cacdad03e6f697632ae0"
+  *                                         first_name:
+ *                                              type: string
+ *                                              example: Name
+ *                                          last_name:
+ *                                              type: string
+ *                                              example: Last Name
+ *                                          email:
+ *                                              type: string
+ *                                              example: email@mail.com
+ *                                          gender:
+ *                                              type: string
+ *                                              example: Male
+ *                                          password:
+ *                                              type: string
+ *                                              example: ojdhf87a5sd8fu
+ *                                          date_birth:
+ *                                              type: date
+ *                                              example: '03-15-1989'
+ *                              msg: 
+ *                                  type: string
+ *                                  example: User found
+ *          404:
+ *              description: not found
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              msg:
+ *                                  type: string
+ *                                  example: users db not found
+ *                              error:
+ *                                  type: string
+ *                                  example: message error    
+ */
 router.get('/:id', userController.getById)
+
+// /**
+//  * @swagger
+//  * /users:
+//  *  post:
+//  *      summary: Create new user
+//  *      tags:
+//  *          - users
+//  *      description: endpoint to create a user
+//  *      requestBody:
+//  *          content:
+//  *              application/json:
+//  *                  schema:
+//  *                      type: object
+//  *                      properties:
+//  *                          first_name:
+//  *                              type: string
+//  *                              example: Name
+//  *                          last_name:
+//  *                              type: string
+//  *                              example: Last Name
+//  *                          email:
+//  *                              type: string
+//  *                              example: email@mail.com
+//  *                          gender:
+//  *                              type: string
+//  *                              example: Male
+//  *                          password:
+//  *                              type: string
+//  *                              example: ojdhf87a5sd8fu
+//  *                          date_birth:
+//  *                              type: date
+//  *                              example: '03-15-2023'
+//  *      responses:
+//  *          201:
+//  *              description: return a message and data user
+//  *              content:
+//  *                  application/json:
+//  *                      schema:
+//  *                          type: object
+//  *                          properties:
+//  *                              msg: 
+//  *                                  type: string
+//  *                                  example: User created
+//  *                              data:
+//  *                                  type: string
+//  *                                  properties:
+//  *                                      _id:
+//  *                                          type: string
+//  *                                          example: 6524cacdad03e6f697632ae0
+//  *                                      first_name:
+//  *                                          type: string
+//  *                                          example: Name
+//  *                                      last_name:
+//  *                                          type: string
+//  *                                          example: Last Name
+//  *                                      email:
+//  *                                          type: string
+//  *                                          example: email@mail.com
+//  *                                      gender:
+//  *                                          type: string
+//  *                                          example: Male
+//  *                                      password:
+//  *                                          type: string
+//  *                                          example: ojdhf87a5sd8fu
+//  *                                      date_birth:
+//  *                                          type: date
+//  *                                          example: '03-15-1989'
+//  * 
+//  */
+router.post('/', userController.post)
+
+// /**
+//  * @swagger
+//  * /users/id:
+//  *  put:
+//  *      summary: Update user
+//  *      tags:
+//  *          - users
+//  *      description: endpoint to update a user
+//  *      requestBody:
+//  *          content:
+//  *              application/json:
+//  *                  schema:
+//  *                      type: object
+//  *                      properties:
+//  *                          first_name:
+//  *                              type: string
+//  *                              example: Name
+//  *                          last_name:
+//  *                              type: string
+//  *                              example: Last Name
+//  *                          email:
+//  *                              type: string
+//  *                              example: email@mail.com
+//  *                          gender:
+//  *                              type: string
+//  *                              example: Male
+//  *                          password:
+//  *                              type: string
+//  *                              example: ojdhf87a5sd8fu
+//  *                          date_birth:
+//  *                              type: date
+//  *                              example: '03-15-2023'
+//  *      responses:
+//  *          201:
+//  *              description: return a message and data user
+//  *              content:
+//  *                  application/json:
+//  *                      schema:
+//  *                          type: object
+//  *                          properties:
+//  *                              msg: 
+//  *                                  type: string
+//  *                                  example: User created
+//  *                              data:
+//  *                                  type: string
+//  *                                  properties:
+//  *                                      _id:
+//  *                                          type: string
+//  *                                          example: 6524cacdad03e6f697632ae0
+//  *                                      first_name:
+//  *                                          type: string
+//  *                                          example: Name
+//  *                                      last_name:
+//  *                                          type: string
+//  *                                          example: Last Name
+//  *                                      email:
+//  *                                          type: string
+//  *                                          example: email@mail.com
+//  *                                      gender:
+//  *                                          type: string
+//  *                                          example: Male
+//  *                                      password:
+//  *                                          type: string
+//  *                                          example: ojdhf87a5sd8fu
+//  *                                      date_birth:
+//  *                                          type: date
+//  *                                          example: '03-15-1989'
+//  *          404:
+//  *              description: not found
+//  *              content:
+//  *                  application/json:
+//  *                      schema:
+//  *                          type: object
+//  *                          properties:
+//  *                              msg:
+//  *                                  type: string
+//  *                                  example: users db not found
+//  *                              error:
+//  *                                  type: string
+//  *                                  example: message error   
+//  * 
+//  */
+router.put('/:id', userController.put)
+
+// /**
+//  * @swagger
+//  *  * /users/id:
+//  *  delete:
+//  *      summary: Update user
+//  *      tags:
+//  *          - users
+//  *      description: endpoint to update a user
+//  *      requestBody:
+//  *          content:
+//  *              application/json:
+//  *                  schema:
+//  *                      type: object
+//  *                      properties:
+//  *                          _id:
+//  *                              type: string
+//  *                              example: 6524cacdad03e6f697632ae0
+//  *      responses:
+//  *          201:
+//  *              description: return a message
+//  *              content:
+//  *                  application/json:
+//  *                      schema:
+//  *                          type: object
+//  *                          properties:
+//  *                              msg: 
+//  *                                  type: string
+//  *                                  example: User deleted
+//  *          404:
+//  *              description: not found
+//  *              content:
+//  *                  application/json:
+//  *                      schema:
+//  *                          type: object
+//  *                          properties:
+//  *                              msg:
+//  *                                  type: string
+//  *                                  example: user db not found
+//  *                              error:
+//  *                                  type: string
+//  *                                  example: message error   
+//  */
+router.delete('/:id', userController.delete)
 
 module.exports= router

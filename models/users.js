@@ -9,12 +9,24 @@ password": kP7@jBg"CbeNy>>b"
 const { Schema, model } = require('mongoose')
 
 const userSchema = new Schema({
-    first_name: String,
-    last_name: String,
-    email: String,
-    gender: String,
-    password: String,
-    date_birth: Date,
+    first_name: {
+        type: String
+    },
+    last_name: {
+        type: String
+    },
+    email: {
+        type: String
+    },
+    gender: {
+        type: String
+    },
+    password: {
+        type: String
+    },
+    date_birth: {
+        type: Date
+    },
 })
 
 const Users = model('users', userSchema)
