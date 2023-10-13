@@ -20,7 +20,7 @@ module.exports = {
                 date_birth: {
                     type: Date
                 },
-            }∫
+            }
         }
     }
 }

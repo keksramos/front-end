@@ -7,6 +7,7 @@ password": kP7@jBg"CbeNy>>b"
  */
 
 const { Schema, model } = require('mongoose')
+const bycrypt = require ('bcrypt')
 
 const userSchema = new Schema({
     first_name: {
@@ -19,10 +20,15 @@ const userSchema = new Schema({
     },
     email: {
         type: String,
-        require: true
+        require: true,
+        match: [/^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/, 'email invalid']
     },
     gender: {
-        type: String
+        type: String,
+        enum: {
+            values: ['Male', 'Female'],
+            message: '{VALUE} is not a valid gender'
+        }
     },
     password: {
         type: String,
@@ -32,7 +38,18 @@ const userSchema = new Schema({
         type: Date,
         require: true
     },
-})
+},
+{
+    timestamps: true,
+    versionKey: true,
+    statics: {
+        encrypPassword: async (password) => {
+            const salt = await bycrypt.genSalt(15)
+            return await bycrypt.hash(password, salt)
+        }
+    }
+}
+)
 
 const Users = model('users', userSchema)
 
