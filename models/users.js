@@ -8,6 +8,7 @@ password": kP7@jBg"CbeNy>>b"
 
 const { Schema, model } = require('mongoose')
 const bycrypt = require ('bcrypt')
+const uniqueValidator= require('mongoose-unique-validator')
 
 const userSchema = new Schema({
     first_name: {
@@ -21,7 +22,8 @@ const userSchema = new Schema({
     email: {
         type: String,
         require: true,
-        match: [/^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/, 'email invalid']
+        match: [/^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/, 'email invalid'],
+        uniqueValidator: true
     },
     gender: {
         type: String,
@@ -41,16 +43,22 @@ const userSchema = new Schema({
 },
 {
     timestamps: true,
-    versionKey: true,
     statics: {
         encrypPassword: async (password) => {
+            if (!password.match(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/)){
+                throw new Error ("password not valid")
+            }
             const salt = await bycrypt.genSalt(15)
             return await bycrypt.hash(password, salt)
+        },
+        comparePassword: async (password, hash) => {
+            return await bycrypt.compare(password, hash)
         }
     }
 }
 )
 
+userSchema.plugin(uniqueValidator)
 const Users = model('users', userSchema)
 
 module.exports = Users

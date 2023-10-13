@@ -7,7 +7,7 @@ const Users = require('../models/users')
 module.exports = {
     get: async (req, res) => {
         let users= await Users.find()
-        res.status(200).send({msg: 'Success', data:users})
+        return res.status(200).send({msg: 'Success', data:users})
     },
 
     getById: async (req, res) => {
@@ -16,9 +16,10 @@ module.exports = {
         if(!user){
             return res.status(404).send({msg: 'User not found'})
         }
-        res.status(200).send({msg: 'Success', data:user})
+        return res.status(200).send({msg: 'Success', data:user})
     },
     post: async (req, res) => {
+        req.body.password = await Users.encrypPassword(req.body.password)
         let user = await Users.create(req.body)
         if (!user) {
             return res.status(502).send({msg: 'User not created'})
@@ -39,9 +40,21 @@ module.exports = {
         let id = req.params.id
         let user = await Users.deleteOne(id)
         if (!user){
-            res.status(404).send({msg: 'User not found'})
+            return res.status(404).send({msg: 'User not found'})
         }
-        res.status(200).send({msg: 'User deleted successfully'})
+        return res.status(200).send({msg: 'User deleted successfully'})
+    },
+    login: async (req, res) => {
+        const {email, password} = req.body
+        let user = await Users.findOne({email: email})
+        if (!user){
+            return res.status(404).send({msg: 'user not found'})
+        }
+        let validPassword = await Users.comparePassword(password, user.password)
+        if(!validPassword){
+            return res.status(401).send({msg:'incorrect password'})
+        }
+        return res.status(200).send({msg: 'success', data:user})
     }
 }
 
