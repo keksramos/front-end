@@ -36,7 +36,7 @@ module.exports = {
     },
     put: async (req, res) => {
         let id = req.params.id
-        let user = await Users.findOneAndUpdate(id, req.body)
+        let user = await Users.findByIdAndUpdate(id, req.body)
         if (!user) {
             return res.status(404).send({msg: 'User not found'})
         }
@@ -44,7 +44,7 @@ module.exports = {
     },
     delete: async (req, res) => {
         let id = req.params.id
-        let user = await Users.deleteOne(id)
+        let user = await Users.deleteOne({"_id": (id)})
         if (!user){
             return res.status(404).send({msg: 'User not found'})
         }
