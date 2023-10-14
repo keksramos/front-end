@@ -44,7 +44,7 @@ module.exports = {
     },
     delete: async (req, res) => {
         let id = req.params.id
-        let user = await Users.deleteOne({"_id": (id)})
+        let user = await Users.findByIdAndDelete(id)
         if (!user){
             return res.status(404).send({msg: 'User not found'})
         }
